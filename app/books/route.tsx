@@ -18,9 +18,22 @@ import { books } from "./data";
 
 
 export async function GET(request:NextRequest){
-    let serPar = request.nextUrl.searchParams;
-    let quers = serPar.getAll('quer')||''
-    console.log(quers);
-    
-    return Response.json(books)
+
+    let serParams = request.nextUrl.searchParams;
+    let titleQ=serParams.get('title')||''
+    let pageCountQ=serParams.get('pageCount')||''
+    let Quer=serParams.get('quer')||''
+
+    if(Quer){
+        let filtered = books.filter(b=>b.title.includes(Quer))
+        return new Response(JSON.stringify(filtered))
+    }
+    else if(titleQ&&pageCountQ){
+        let filtered = books.filter(b=>b.title.includes(titleQ)&&b.pageCount===parseInt(pageCountQ))
+        return new Response(JSON.stringify(filtered))
+    }else{
+        return Response.json(books)
+    }
+
+
 }

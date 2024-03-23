@@ -1,20 +1,34 @@
 "use client"
 import React, { useRef } from 'react'
 import { books } from '../books/data';
+import BookCard from './BookCard';
+import { auth } from '../firebase/config';
+import { useRouter } from 'next/navigation';
 
 type Props = {}
 
 const BookWeb = (props: Props) => {
   let serRef = useRef<HTMLInputElement>(null);
+  let router = useRouter()
+  let user = auth.currentUser;
+  console.log(user)
 
   let SerButton =async (e:React.MouseEvent<HTMLButtonElement>)=>{
     e.preventDefault();
-    let SerVal = serRef.current?.value;
-    // let filtered = books.filter(b=>b.title.includes(SerVal))
+    let SerVal = serRef.current?.value||'';
+    console.log(SerVal)
+    let filtered = books.filter(b=>b.title.includes(SerVal))
+    console.log(filtered)
   }
+  let handleLogOut = ()=>{
+    console.log('logged out')
+  }
+
+  if (!user) router.push('/')
     
   return (
-    <div className='bg-green-100 p-4 h-[100vh] m-auto'>
+    <div className='bg-green-100 p-4 h-[100%] m-auto'>
+       <p onClick={handleLogOut} className='hover:cursor-pointer bg-pink-600 text-white py-2 px-3 w-fit'>LogOut</p>
         <p className='text-2xl text-center'> Search for your desired book</p>
     
         <form className='flex flex-row justify-center my-5'>
@@ -27,6 +41,14 @@ const BookWeb = (props: Props) => {
 
         </form>
 
+        <div className='grid grid-cols-5 gap-3'>
+          {
+            books.map(b=>(
+              <BookCard book={b}/>
+
+            ))
+          }
+        </div>
 
     </div>
   )

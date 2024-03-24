@@ -41,6 +41,7 @@ export async function GET(request:NextRequest){
             return new Response(JSON.stringify(filtered))
         break;
         case autherQ:
+            console.log(autherQ)
             filtered = books.filter(b=>b.authors.includes(autherQ))
             console.log(filtered)
             return Response.json(filtered)

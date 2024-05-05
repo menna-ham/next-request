@@ -7,7 +7,7 @@ export default function Home() {
     <main >
         {/* <body> */}
 
-          <MainHome></MainHome>
+          {/* <MainHome></MainHome> */}
 
         {/* </body> */}
 

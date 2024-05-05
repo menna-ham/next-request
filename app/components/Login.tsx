@@ -9,6 +9,10 @@ type Props = {}
 const Login = (props: Props) => {
     let [userCredintials, setUserCredintials] = React.useState({ email: '', password: '' })
     let router = useRouter()
+    let myUser = auth.currentUser
+    if(myUser!|| sessionStorage.getItem('user')){
+        router.push('./bookweb')
+    }else{router.push('/')}
 
     let handleUser = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
@@ -25,6 +29,8 @@ const Login = (props: Props) => {
                 const user = userCredential.user;
                 console.log(user)
                 router.push('./bookweb')
+                sessionStorage.setItem('user',JSON.stringify(auth.currentUser))
+
             })
             .catch((error) => {
                 const errorCode = error.code;

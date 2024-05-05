@@ -23,6 +23,7 @@ const SignUp = (props: Props) => {
     createUserWithEmailAndPassword(auth, userCredintials.email, userCredintials.password)
       .then((userCredential) => {
         const user = userCredential.user;
+        // sessionStorage.setItem('user',JSON.stringify(auth.currentUser))
         console.log(user)
       })
       .catch((error: any) => {

@@ -2,11 +2,19 @@
 import React from 'react'
 import Login from './Login'
 import SignUp from './SignUp'
+import { auth } from '../firebase/config'
+import { useRouter } from 'next/navigation'
 
 type Props = {}
 
 const MainHome = (props: Props) => {
     let [Log,setLog] = React.useState('login')
+    // let myUser = auth.currentUser
+    // let router = useRouter()
+
+    // if (myUser|| sessionStorage.getItem('user')){
+    //   router.push('./bookweb')
+    // }else{ router.push('/')}
 
   return (
     <div className='p-3 bg-pink-200 m-auto h-[100vh]'>
